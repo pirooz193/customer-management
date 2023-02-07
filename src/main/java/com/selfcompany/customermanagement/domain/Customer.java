@@ -3,8 +3,6 @@ package com.selfcompany.customermanagement.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,20 +29,17 @@ public class Customer {
     @Column(name = "account_status")
     private boolean accountStatus;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Account> accounts = new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return accountStatus == customer.accountStatus && id.equals(customer.id) && name.equals(customer.name) && lastName.equals(customer.lastName) && emailAddress.equals(customer.emailAddress) && phoneNumber.equals(customer.phoneNumber) && address.equals(customer.address) && birthDate.equals(customer.birthDate) && accounts.equals(customer.accounts);
+        return accountStatus == customer.accountStatus && id.equals(customer.id) && name.equals(customer.name) && lastName.equals(customer.lastName) && nationalCode.equals(customer.nationalCode) && emailAddress.equals(customer.emailAddress) && phoneNumber.equals(customer.phoneNumber) && address.equals(customer.address) && birthDate.equals(customer.birthDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, emailAddress, phoneNumber, address, birthDate, accountStatus, accounts);
+        return Objects.hash(id, name, lastName, nationalCode, emailAddress, phoneNumber, address, birthDate, accountStatus);
     }
 
     @Override
@@ -53,12 +48,12 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", nationalCode='" + nationalCode + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", birthDate=" + birthDate +
                 ", accountStatus=" + accountStatus +
-                ", accounts=" + accounts +
                 '}';
     }
 
@@ -84,6 +79,14 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getNationalCode() {
+        return nationalCode;
+    }
+
+    public void setNationalCode(String nationalCode) {
+        this.nationalCode = nationalCode;
     }
 
     public String getEmailAddress() {
@@ -124,13 +127,5 @@ public class Customer {
 
     public void setAccountStatus(boolean accountStatus) {
         this.accountStatus = accountStatus;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
     }
 }

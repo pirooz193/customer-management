@@ -17,7 +17,7 @@ public class Transaction {
     private LocalDateTime localDateTime;
     @Column(name = "amount")
     private double amount;
-    @Column(name = "transaction_type")
+    @Column(name = "transaction_type", length = 20)
     private TransactionType transactionType;
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
